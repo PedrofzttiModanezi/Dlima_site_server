@@ -1034,3 +1034,56 @@ img {
     transform: translate(-50%, 0);
   }
 }
+/* Container que mantém o link e o menu unidos */
+.nav__dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Pequena seta indicativa ao lado do texto */
+.nav__arrow {
+  font-size: 10px;
+  margin-left: 4px;
+  vertical-align: middle;
+}
+
+/* Configuração do Menu Suspenso (Baseado no seu ID/Classe) */
+.products-menu {
+  display: none; /* Escondido por padrão */
+  position: absolute;
+  top: 100%; /* Brota exatamente abaixo do link Produtos */
+  left: 50%;
+  transform: translateX(-50%); /* Centraliza o menu em relação ao link */
+  background-color: rgba(27, 20, 38, 0.95); /* Fundo escuro premium */
+  min-width: 160px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);
+  padding: 10px 0;
+  border-radius: 4px;
+  z-index: 1000; /* Garante que fica por cima dos banners */
+}
+
+/* Estilização dos botões internos do menu */
+.products-menu__btn {
+  display: block;
+  width: 100%;
+  padding: 12px 20px;
+  background: none;
+  border: none;
+  color: #b5b5b5;
+  text-align: left;
+  font-size: 14px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+/* Efeito de hover nos botões internos */
+.products-menu__btn:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+/* GATILHO: Mostra o menu quando o mouse passa por cima do container */
+.nav__dropdown:hover .products-menu {
+  display: block;
+}

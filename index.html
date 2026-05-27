@@ -30,12 +30,29 @@
           <span class="brand__tag">Moda Streetwear</span>
         </div>
         <nav class="nav">
-          <a href="#inicio" class="nav__link">Início</a>
-          <a href="#colecoes" class="nav__link" id="nav-products">Produtos</a>
-          <a href="#em-breve" class="nav__link">Em breve</a>
-          <a href="#contato" class="nav__link">Contato</a>
-          <a href="#sobre-nos" class="nav__link">Sobre nós</a>
-        </nav>
+  <a href="#inicio" class="nav__link">Início</a>
+  
+  <!-- Container do Dropdown (Substitui o link solto anterior) -->
+  <div class="nav__dropdown">
+    <a href="#colecoes" class="nav__link" id="nav-products">
+      Produtos <span class="nav__arrow">▼</span>
+    </a>
+    
+    <!-- Seu menu de produtos agora fica aqui dentro -->
+    <div class="products-menu" id="products-menu">
+      <button type="button" class="products-menu__btn" data-target="nature-over">Camisetas</button>
+      <button type="button" class="products-menu__btn" data-target="calcas">Calças</button>
+      <button type="button" class="products-menu__btn" data-target="bermudas">Bermudas</button>
+      <button type="button" class="products-menu__btn" data-target="winter-tide">Moletons</button>
+      <button type="button" class="products-menu__btn" data-target="bones">Bonés</button>
+    </div>
+  </div>
+
+  <a href="#em-breve" class="nav__link">Em breve</a>
+  <a href="#contato" class="nav__link">Contato</a>
+  <a href="#sobre-nos" class="nav__link">Sobre nós</a>
+</nav>
+
         <!-- Products quick-selector (hidden by default, toggled by Produtos) -->
         <div class="products-menu" id="products-menu" hidden aria-hidden="true">
           <button type="button" class="products-menu__btn" data-target="nature-over">Camisetas</button>
