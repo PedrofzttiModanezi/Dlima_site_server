@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>D'lima Store</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/styles.css" />
+  </head>
+  <body>
+    <div class="loader" id="loader" role="status" aria-label="Carregando D'lima Store">
+      <div class="loader__content">
+        <img
+          class="loader__logo"
+          src="../images/logo_dlima.png"
+          alt="D'lima Store"
+          width="300"
+          height="100"
+          decoding="async"
+          loading="eager"
+        />
+        <div class="loader__line"></div>
+      </div>
+    </div>
+
+    <div class="bg-layer" aria-hidden="true">
+      <img
+        class="bg-layer__img"
+        src="../images/bg-lojaa.png"
+        alt=""
+        width="1024"
+        height="576"
+        decoding="async"
+      />
+    </div>
+    <header class="header">
+  <div class="header__inner">
+    <a href="#inicio" class="brand brand--logo">
+      <img
+        class="brand__logo"
+        src="../images/logo_dlima.png"
+        alt="D'lima Store"
+        width="100"
+        height="48"
+        decoding="async"
+      />
+    </a>
+
+    <nav class="nav">
+      <a href="#inicio" class="nav__link">Início</a>
+      <a href="./produtos.html" class="nav__link">Produtos</a>
+      <a href="#em-breve" class="nav__link">Em breve</a>
+      <a href="#contato" class="nav__link">Contato</a>
+      <a href="#sobre-nos" class="nav__link">Sobre nós</a>
+    </nav>
+
+    <div class="header-cart">
+      <button type="button" class="btn-cart" id="btn-open-cart" aria-label="Abrir carrinho">
+        <span aria-hidden="true">🛒</span>
+        <span class="btn-cart__badge" id="cart-badge" hidden>0</span>
+      </button>
+      <span class="btn-cart__caption">Carrinho</span>
+    </div>
+
+  </div>
+</header>
+
+    <main class="main">
+      <section class="hero reveal" id="inicio">
+        <p class="hero__eyebrow">DROP LIMITADO 2026</p>
+      
+        <h1 class="hero__title">
+          D'LIMA<br />
+          STREETWEAR
+        </h1>
+      
+        <p class="hero__subtitle">
+          Exclusividade, atitude e presença.
+        </p>
+      
+        <p class="hero__text">
+          A nova geração do streetwear local, com identidade,
+          atitude e autenticidade.
+        </p>
+      
+        <div class="hero__actions">
+          <a href="./produtos.html" class="btn btn--primary">
+            Ver Produtos
+          </a>
+      
+          <a href="#sobre-nos" class="btn btn--ghost">
+            Nossa essência
+          </a>
+        </div>
+      
+        <div class="hero__stats">
+          <div class="hero__stat">
+            <strong>+1500</strong>
+            <span>Clientes</span>
+          </div>
+      
+          <div class="hero__stat">
+            <strong>DROP</strong>
+            <span>Limitado</span>
+          </div>
+      
+          <div class="hero__stat">
+            <strong>PREMIUM</strong>
+            <span>Qualidade</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="coming-soon" id="em-breve">
+        <h2>Em breve</h2>
+        <p>Novas coleções chegando em breve. Fique ligado!</p>
+      </section>
+
+      <section class="contact" id="contato">
+        <h2>Contato</h2>
+        <p>Entre em contato conosco para dúvidas ou pedidos especiais.</p>
+        <p>E-mail: contato@streetdrop.com</p>
+      </section>
+
+      <section class="about" id="sobre-nos">
+        <div class="about__content">
+          <h2>Sobre nós</h2>
+        
+          <p>
+            A D'lima Store nasceu para representar a nova geração do streetwear.
+            Mais do que roupas, criamos identidade, presença e atitude.
+          </p>
+        
+          <p>
+            Nosso foco é trazer peças exclusivas com estética urbana moderna,
+            combinando conforto, personalidade e autenticidade em cada coleção.
+          </p>
+        
+          <ul class="about__list">
+            <li>Drop limitado e peças diferenciadas.</li>
+            <li>Visual streetwear com influência urbana contemporânea.</li>
+            <li>Qualidade premium e caimento pensado no lifestyle atual.</li>
+            <li>Marca criada para quem quer se destacar.</li>
+          </ul>
+        
+          <p>
+            A D'lima não segue tendências.
+            A gente cria presença.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <div class="cart-backdrop" id="cart-backdrop" hidden aria-hidden="true"></div>
+    <aside class="cart-drawer" id="cart-drawer" aria-labelledby="cart-heading" role="dialog" aria-modal="true" hidden>
+      <div class="cart-drawer__head">
+        <h2 id="cart-heading" class="cart-drawer__title">Carrinho</h2>
+        <button type="button" class="cart-drawer__close" id="btn-close-cart" aria-label="Fechar carrinho">✕</button>
+      </div>
+      <div class="cart-drawer__body" id="cart-lines"></div>
+      <div class="cart-drawer__foot">
+        <p class="cart-drawer__error" id="checkout-msg" hidden></p>
+        <div class="cart-drawer__subtotal">
+          <span>Subtotal</span>
+          <strong id="cart-subtotal">R$ 0,00</strong>
+        </div>
+        <div class="cart-drawer__actions">
+          <button type="button" class="btn btn--ghost" id="btn-clear-cart" disabled>Limpar</button>
+          <button type="button" class="btn btn--primary" id="btn-checkout" disabled>Finalizar pedido</button>
+        </div>
+        <p class="cart-drawer__hint">Seu carrinho fica salvo neste navegador.</p>
+      </div>
+    </aside>
+
+    <footer class="footer reveal">
+      <div class="footer__container">
+        <div class="footer__brand">
+          <img
+            src="../images/logo_dlima.png"
+            alt="D'lima Store"
+            class="footer__logo"
+          />
+    
+          <p>
+            Streetwear premium para quem vive a cultura urbana.
+            Exclusividade, atitude e presença em cada drop.
+          </p>
+        </div>
+    
+        <div class="footer__links">
+          <h3>Navegação</h3>
+    
+          <a href="#inicio">Início</a>
+          <a href="./produtos.html">Produtos</a>
+          <a href="#em-breve">Novidades</a>
+          <a href="#sobre-nos">Sobre nós</a>
+          <a href="#contato">Contato</a>
+          <a href="https://www.instagram.com/__dlimastore?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank">Instagram</a>
+        </div>
+    
+        <div class="footer__contact">
+          <h3>Contato</h3>
+    
+          <p>WhatsApp: (15) 99786-1572</p>
+          <p>Email: contato@dlimastore.com</p>
+          <p>Tatuí • São Paulo</p>
+        </div>
+      </div>
+    
+      <div class="footer__bottom">
+        <p class="footer__copyright">© 2026 D'lima Store — Todos os direitos reservados.</p>
+      </div>
+    </footer>
+
+    <script src="./js/app.js" defer></script>
+  </body>
+</html>
