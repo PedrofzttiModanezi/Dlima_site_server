@@ -1,0 +1,4 @@
+.env
+.env.*
+!.env.example
+Dlima/data/acessos.json

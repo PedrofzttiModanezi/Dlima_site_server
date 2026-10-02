@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Administração | D'lima Store</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root { color-scheme: dark; --bg: #0b0a0c; --surface: #171419; --line: #373039; --text: #f7f4f5; --muted: #aaa1aa; --pink: #f472b6; --yellow: #facc15; --green: #86efac; --red: #fca5a5; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; background: radial-gradient(ellipse at 80% 0%, #30202b 0, transparent 38%), var(--bg); color: var(--text); font: 15px/1.5 "DM Sans", system-ui, sans-serif; }
+    button, input, select, textarea { font: inherit; }
+    button { min-height: 42px; padding: 0 16px; border: 1px solid var(--line); border-radius: 6px; background: #252027; color: var(--text); cursor: pointer; font-weight: 700; }
+    button:hover { border-color: var(--pink); }
+    button:disabled { opacity: .55; cursor: wait; }
+    input, select, textarea { width: 100%; min-height: 44px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 5px; background: #0f0d10; color: var(--text); }
+    input:focus, select:focus, textarea:focus { outline: 2px solid var(--pink); outline-offset: 1px; }
+    textarea { min-height: 88px; resize: vertical; }
+    label { display: grid; gap: 6px; color: #ded7dd; font-size: 13px; font-weight: 600; }
+    [hidden] { display: none !important; }
+    .topbar { min-height: 66px; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 12px max(20px, calc((100% - 1120px) / 2)); border-bottom: 1px solid var(--line); background: #0b0a0ceF; }
+    .brand { color: var(--text); text-decoration: none; font: 24px/1 "Bebas Neue", sans-serif; }
+    .brand span { margin-left: 8px; color: var(--pink); font: 700 10px/1 "DM Sans", sans-serif; letter-spacing: 1px; }
+    main { width: min(1120px, calc(100% - 36px)); margin: 32px auto 72px; }
+    h1, h2, p { margin-top: 0; }
+    h1 { margin-bottom: 8px; font: 38px/1 "Bebas Neue", sans-serif; }
+    h2 { margin-bottom: 16px; font-size: 18px; }
+    .eyebrow { margin-bottom: 8px; color: var(--yellow); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; }
+    .muted { color: var(--muted); }
+    .login { width: min(420px, 100%); margin: 10vh auto; padding: 28px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+    .stack { display: grid; gap: 14px; }
+    .primary { border-color: var(--pink); background: var(--pink); color: #210e19; }
+    .primary:hover { background: #f9a8d4; }
+    .danger { color: var(--red); }
+    .toolbar, .section-heading { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    .metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 24px 0; }
+    .metric, .section { border: 1px solid var(--line); border-radius: 7px; background: var(--surface); }
+    .metric { padding: 18px 20px; }
+    .metric span { display: block; color: var(--muted); font-size: 13px; }
+    .metric strong { display: block; margin-top: 5px; color: var(--yellow); font-size: 30px; line-height: 1.1; }
+    .section { margin-top: 18px; padding: 20px; }
+    .fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .wide { grid-column: 1 / -1; }
+    .form-actions, .actions { display: flex; flex-wrap: wrap; gap: 8px; }
+    .product-list { display: grid; }
+    .product-search { max-width: 440px; margin-bottom: 12px; }
+    .product { display: grid; grid-template-columns: 64px minmax(0, 1fr) auto; align-items: center; gap: 14px; padding: 14px 0; border-top: 1px solid var(--line); }
+    .product:first-child { border-top: 0; }
+    .thumb { width: 64px; height: 76px; border-radius: 4px; object-fit: cover; background: #29242b; }
+    .product h3 { margin: 0; font-size: 15px; }
+    .product p { margin: 3px 0 0; color: var(--muted); font-size: 12px; }
+    .product-price { color: var(--yellow) !important; font-weight: 700; }
+    .message { min-height: 22px; margin: 10px 0 0; color: var(--red); font-size: 13px; }
+    .status { min-height: 22px; color: var(--muted); font-size: 13px; }
+    @media (max-width: 620px) {
+      main { width: min(100% - 24px, 1120px); margin-top: 22px; }
+      .metrics { gap: 8px; }
+      .metric, .section { padding: 15px; }
+      .fields { grid-template-columns: 1fr; }
+      .wide { grid-column: auto; }
+      .section-heading { align-items: flex-start; flex-direction: column; }
+      .product { grid-template-columns: 48px minmax(0, 1fr); gap: 10px; }
+      .thumb { width: 48px; height: 58px; }
+      .actions { grid-column: 2; }
+      .actions button { flex: 1; }
+      h1 { font-size: 34px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/">D'LIMA <span>ADMIN</span></a>
+    <button id="logout-button" type="button" hidden>Sair</button>
+  </header>
+
+  <main>
+    <section id="login-panel" class="login" aria-labelledby="login-title" hidden>
+      <p class="eyebrow">ÁREA RESTRITA</p>
+      <h1 id="login-title">Dashboard</h1>
+      <p class="muted">Entre com o e-mail administrativo cadastrado.</p>
+      <form id="login-form" class="stack">
+        <label for="login-email">E-mail<input id="login-email" name="email" type="email" autocomplete="username" required /></label>
+        <label for="login-password">Senha<input id="login-password" name="password" type="password" autocomplete="current-password" required /></label>
+        <button class="primary" type="submit">Entrar</button>
+      </form>
+      <p id="login-message" class="message" role="status" aria-live="polite"></p>
+    </section>
+
+    <section id="dashboard" hidden>
+      <div class="toolbar">
+        <div><p class="eyebrow">VISÃO GERAL</p><h1>Administração</h1></div>
+        <button id="refresh-button" type="button" title="Atualizar métricas e produtos">Atualizar</button>
+      </div>
+      <div class="metrics" aria-label="Métricas da loja">
+        <article class="metric"><span>Acessos à loja</span><strong id="access-count">0</strong></article>
+        <article class="metric"><span>Produtos cadastrados</span><strong id="product-count">0</strong></article>
+      </div>
+
+      <section class="section" aria-labelledby="form-title">
+        <h2 id="form-title">Novo produto</h2>
+        <form id="product-form" class="stack">
+          <input id="product-id" type="hidden" />
+          <div class="fields">
+            <label>Nome<input id="product-name" required maxlength="120" /></label>
+            <label>Categoria
+              <select id="product-category" required>
+                <option value="" disabled selected>Selecione uma categoria</option>
+                <option value="camisetas">Camisetas</option>
+                <option value="moletons">Moletons</option>
+                <option value="calças">Calças</option>
+                <option value="bermudas">Bermudas</option>
+                <option value="bonés">Bonés</option>
+                <option value="tênis">Tênis</option>
+                <option value="em breve">Em breve</option>
+              </select>
+            </label>
+            <label>Modelo<input id="product-model" required maxlength="80" /></label>
+            <label>Preço (R$)<input id="product-price" type="number" min="0" step="0.01" required /></label>
+            <label>Estoque<input id="product-stock" type="number" min="0" step="1" required /></label>
+            <label>Tamanhos disponíveis<input id="product-sizes" placeholder="P, M, G, GG ou Único" /></label>
+            <label>Imagem (URL ou nome do arquivo)<input id="product-image" required /></label>
+            <label class="wide">Descrição<textarea id="product-description" required maxlength="1000"></textarea></label>
+          </div>
+          <div class="form-actions">
+            <button id="save-product" class="primary" type="submit">Adicionar produto</button>
+            <button id="cancel-edit" type="button" hidden>Cancelar edição</button>
+          </div>
+        </form>
+        <p id="form-message" class="message" role="status" aria-live="polite"></p>
+      </section>
+
+      <section class="section" aria-labelledby="products-title">
+        <div class="section-heading"><h2 id="products-title">Produtos</h2><p id="dashboard-status" class="status" role="status" aria-live="polite"></p></div>
+        <label class="product-search">Buscar produtos
+          <input id="product-search" type="search" placeholder="Nome, categoria, modelo ou descrição" autocomplete="off" />
+        </label>
+        <div id="product-list" class="product-list"></div>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    "use strict";
+
+    const loginPanel = document.getElementById("login-panel");
+    const dashboard = document.getElementById("dashboard");
+    const loginForm = document.getElementById("login-form");
+    const loginMessage = document.getElementById("login-message");
+    const productForm = document.getElementById("product-form");
+    const formMessage = document.getElementById("form-message");
+    const dashboardStatus = document.getElementById("dashboard-status");
+    const productList = document.getElementById("product-list");
+    const productSearch = document.getElementById("product-search");
+    const logoutButton = document.getElementById("logout-button");
+    let products = [];
+    const fields = {
+      id: document.getElementById("product-id"),
+      nome: document.getElementById("product-name"),
+      categoria: document.getElementById("product-category"),
+      modelo: document.getElementById("product-model"),
+      descricao: document.getElementById("product-description"),
+      preco: document.getElementById("product-price"),
+      estoque: document.getElementById("product-stock"),
+      tamanhos: document.getElementById("product-sizes"),
+      imagemUrl: document.getElementById("product-image")
+    };
+
+    async function request(url, options = {}) {
+      const response = await fetch(url, {
+        credentials: "same-origin",
+        ...options,
+        headers: {
+          ...(options.body ? { "Content-Type": "application/json" } : {}),
+          ...options.headers
+        }
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        const error = new Error(result.erro || `Falha na requisição (${response.status}).`);
+        error.status = response.status;
+        throw error;
+      }
+      return result;
+    }
+
+    function showLogin(message = "") {
+      loginPanel.hidden = false;
+      dashboard.hidden = true;
+      logoutButton.hidden = true;
+      loginMessage.textContent = message;
+    }
+
+    function createProductRow(product) {
+      const row = document.createElement("article");
+      row.className = "product";
+      const image = document.createElement("img");
+      image.className = "thumb";
+      image.src = product.imagemUrl || "";
+      image.alt = product.nome;
+      image.loading = "lazy";
+      image.addEventListener("error", () => { image.hidden = true; }, { once: true });
+
+      const details = document.createElement("div");
+      const name = document.createElement("h3");
+      name.textContent = product.nome;
+      const description = document.createElement("p");
+      description.textContent = `${product.categoria} · ${product.modelo} · estoque ${product.estoque}`;
+      const price = document.createElement("p");
+      price.className = "product-price";
+      price.textContent = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(Number(product.preco));
+      details.append(name, description, price);
+
+      const actions = document.createElement("div");
+      actions.className = "actions";
+      const editButton = document.createElement("button");
+      editButton.type = "button";
+      editButton.textContent = "Editar";
+      editButton.addEventListener("click", () => beginEdit(product));
+      const deleteButton = document.createElement("button");
+      deleteButton.type = "button";
+      deleteButton.className = "danger";
+      deleteButton.textContent = "Excluir";
+      deleteButton.addEventListener("click", () => deleteProduct(product));
+      actions.append(editButton, deleteButton);
+      row.append(image, details, actions);
+      return row;
+    }
+
+    function normalizeSearch(value) {
+      return String(value).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase("pt-BR");
+    }
+
+    function renderProducts() {
+      const term = normalizeSearch(productSearch.value.trim());
+      const filteredProducts = products.filter((product) => normalizeSearch([
+        product.nome,
+        product.categoria,
+        product.modelo,
+        product.descricao
+      ].join(" ")).includes(term));
+
+      productList.replaceChildren();
+      if (products.length === 0) {
+        const empty = document.createElement("p");
+        empty.className = "muted";
+        empty.textContent = "Nenhum produto cadastrado.";
+        productList.appendChild(empty);
+      } else if (filteredProducts.length === 0) {
+        const empty = document.createElement("p");
+        empty.className = "muted";
+        empty.textContent = "Nenhum produto corresponde à busca.";
+        productList.appendChild(empty);
+      } else {
+        filteredProducts.forEach((product) => productList.appendChild(createProductRow(product)));
+      }
+      dashboardStatus.textContent = `${filteredProducts.length} de ${products.length} produto(s)`;
+    }
+
+    async function loadDashboard() {
+      try {
+        const [metrics, catalog] = await Promise.all([
+          request("/api/admin/metrics"),
+          request("/api/produtos")
+        ]);
+        document.getElementById("access-count").textContent = metrics.acessos.toLocaleString("pt-BR");
+        document.getElementById("product-count").textContent = metrics.produtos.toLocaleString("pt-BR");
+        products = catalog.produtos;
+        renderProducts();
+        loginPanel.hidden = true;
+        dashboard.hidden = false;
+        logoutButton.hidden = false;
+      } catch (error) {
+        if (error.status === 401) {
+          showLogin();
+        } else {
+          dashboardStatus.textContent = error.message;
+        }
+      }
+    }
+
+    function beginEdit(product) {
+      for (const key of Object.keys(fields)) {
+        if (key !== "id") fields[key].value = product[key] ?? "";
+      }
+      fields.id.value = product.id;
+      document.getElementById("form-title").textContent = "Editar produto";
+      document.getElementById("save-product").textContent = "Salvar alterações";
+      document.getElementById("cancel-edit").hidden = false;
+      formMessage.textContent = "";
+      productForm.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function resetProductForm() {
+      productForm.reset();
+      fields.id.value = "";
+      document.getElementById("form-title").textContent = "Novo produto";
+      document.getElementById("save-product").textContent = "Adicionar produto";
+      document.getElementById("cancel-edit").hidden = true;
+      formMessage.textContent = "";
+    }
+
+    async function deleteProduct(product) {
+      if (!window.confirm(`Excluir “${product.nome}”?`)) return;
+      try {
+        await request(`/api/produtos/${encodeURIComponent(product.id)}`, { method: "DELETE" });
+        dashboardStatus.textContent = "Produto excluído.";
+        await loadDashboard();
+      } catch (error) {
+        dashboardStatus.textContent = error.message;
+      }
+    }
+
+    loginForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      loginMessage.textContent = "Verificando acesso...";
+      try {
+        await request("/api/admin/login", {
+          method: "POST",
+          body: JSON.stringify({
+            email: document.getElementById("login-email").value,
+            password: document.getElementById("login-password").value
+          })
+        });
+        loginForm.reset();
+        await loadDashboard();
+      } catch (error) {
+        loginMessage.textContent = error.message;
+      }
+    });
+
+    productForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const product = {
+        nome: fields.nome.value.trim(),
+        categoria: fields.categoria.value.trim(),
+        modelo: fields.modelo.value.trim(),
+        descricao: fields.descricao.value.trim(),
+        preco: Number(fields.preco.value),
+        estoque: Number(fields.estoque.value),
+        tamanhos: fields.tamanhos.value.split(",").map((tamanho) => tamanho.trim()).filter(Boolean),
+        imagemUrl: fields.imagemUrl.value.trim()
+      };
+      const id = fields.id.value;
+      try {
+        await request(id ? `/api/produtos/${encodeURIComponent(id)}` : "/api/produtos", {
+          method: id ? "PUT" : "POST",
+          body: JSON.stringify(product)
+        });
+        resetProductForm();
+        formMessage.textContent = id ? "Produto atualizado." : "Produto adicionado.";
+        await loadDashboard();
+      } catch (error) {
+        formMessage.textContent = error.message;
+      }
+    });
+
+    document.getElementById("cancel-edit").addEventListener("click", resetProductForm);
+    document.getElementById("refresh-button").addEventListener("click", loadDashboard);
+    productSearch.addEventListener("input", renderProducts);
+    logoutButton.addEventListener("click", async () => {
+      try { await request("/api/admin/logout", { method: "POST" }); } finally { showLogin("Sessão encerrada."); }
+    });
+
+    showLogin();
+    loadDashboard();
+  </script>
+</body>
+</html>

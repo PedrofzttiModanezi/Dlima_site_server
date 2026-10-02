@@ -38,7 +38,7 @@
         decoding="async"
       />
     </div>
-    <header class="header">
+    <header class="header header--home">
   <div class="header__inner">
     <a href="#inicio" class="brand brand--logo">
       <img
@@ -70,55 +70,26 @@
   </div>
 </header>
 
-    <main class="main">
-      <section class="hero reveal" id="inicio">
-        <p class="hero__eyebrow">DROP LIMITADO 2026</p>
-      
-        <h1 class="hero__title">
-          D'LIMA<br />
-          STREETWEAR
-        </h1>
-      
-        <p class="hero__subtitle">
-          Exclusividade, atitude e presença.
-        </p>
-      
-        <p class="hero__text">
-          A nova geração do streetwear local, com identidade,
-          atitude e autenticidade.
-        </p>
-      
-        <div class="hero__actions">
-          <a href="./produtos.html" class="btn btn--primary">
-            Ver Produtos
-          </a>
-      
-          <a href="#sobre-nos" class="btn btn--ghost">
-            Nossa essência
-          </a>
+    <main class="main main--home">
+      <section class="hero-video" id="inicio" aria-label="D'lima Store streetwear">
+        <video class="hero-video__media" id="hero-video" autoplay muted loop playsinline preload="metadata" poster="../images/bg-lojaa.png" aria-hidden="true">
+          <source src="../images/vdo_dlima.mp4" type="video/mp4" />
+        </video>
+        <div class="hero-video__content">
+          <p class="hero-video__eyebrow">DROP LIMITADO 2026</p>
+          <h1>D'LIMA<br />STREETWEAR</h1>
+          <p class="hero-video__subtitle">Exclusividade, atitude e presença.</p>
+          <a href="./produtos.html" class="btn btn--primary">Ver produtos</a>
         </div>
-      
-        <div class="hero__stats">
-          <div class="hero__stat">
-            <strong>+1500</strong>
-            <span>Clientes</span>
-          </div>
-      
-          <div class="hero__stat">
-            <strong>DROP</strong>
-            <span>Limitado</span>
-          </div>
-      
-          <div class="hero__stat">
-            <strong>PREMIUM</strong>
-            <span>Qualidade</span>
-          </div>
+        <div class="hero-video__controls">
+          <a href="#em-breve" class="hero-video__scroll">Role para descobrir <span aria-hidden="true">↓</span></a>
         </div>
       </section>
 
       <section class="coming-soon" id="em-breve">
         <h2>Em breve</h2>
-        <p>Novas coleções chegando em breve. Fique ligado!</p>
+        <p id="coming-soon-status" class="coming-soon__status" role="status" aria-live="polite">Carregando novidades...</p>
+        <ul id="coming-soon-products" class="grid products-grid coming-soon__grid" aria-describedby="coming-soon-status"></ul>
       </section>
 
       <section class="contact" id="contato">

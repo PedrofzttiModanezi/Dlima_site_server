@@ -42,6 +42,7 @@
       description: String(product.description || product.descricao || ""),
       category: String(product.category || product.categoria || "Outros"),
       imageUrl: String(product.imageUrl || product.imagemUrl || product.imagem || ""),
+      sizes: Array.isArray(product.sizes) ? product.sizes : Array.isArray(product.tamanhos) ? product.tamanhos : [],
       priceCents: Math.round(priceCents)
     };
   }
@@ -140,30 +141,15 @@
     price.className = "card__price";
     price.textContent = formatPrice(product.priceCents);
 
-    var addButton = document.createElement("button");
-    addButton.type = "button";
-    addButton.className = "btn btn--primary";
-    addButton.textContent = "Adicionar ao carrinho";
-    addButton.addEventListener("click", function () {
-      if (!window.DlimaCart || !window.DlimaCart.addItem) return;
-
-      var added = window.DlimaCart.addItem({
-        id: product.id,
-        name: product.name,
-        model: product.model,
-        priceCents: product.priceCents,
-        imageUrl: product.imageUrl
-      });
-
-      if (added) {
-        addButton.textContent = "Adicionado";
-        window.setTimeout(function () {
-          addButton.textContent = "Adicionar ao carrinho";
-        }, 1400);
-      }
+    var detailsButton = document.createElement("button");
+    detailsButton.type = "button";
+    detailsButton.className = "btn btn--primary";
+    detailsButton.textContent = "Ver detalhes";
+    detailsButton.addEventListener("click", function () {
+      if (window.DlimaProductModal) window.DlimaProductModal.open(product);
     });
 
-    footer.append(price, addButton);
+    footer.append(price, detailsButton);
     body.appendChild(footer);
     card.append(media, body);
     item.appendChild(card);

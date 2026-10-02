@@ -4,6 +4,13 @@
   var STORAGE_KEY = "street-tees-cart-html";
   var WHATSAPP_NUMBER = "5515997861572";
   var loader = document.getElementById("loader");
+  var heroVideo = document.getElementById("hero-video");
+  var comingSoonGrid = document.getElementById("coming-soon-products");
+  var comingSoonStatus = document.getElementById("coming-soon-status");
+
+  if (heroVideo) {
+    heroVideo.play().catch(function () {});
+  }
 
   function hideLoader() {
     if (loader) loader.classList.add("hidden");
@@ -69,6 +76,264 @@
       style: "currency",
       currency: "BRL"
     }).format(cents / 100);
+  }
+
+  function createProductModal() {
+    var modal = document.createElement("div");
+    modal.className = "product-modal";
+    modal.hidden = true;
+    modal.setAttribute("role", "dialog");
+    modal.setAttribute("aria-modal", "true");
+    modal.setAttribute("aria-labelledby", "product-modal-title");
+
+    var backdrop = document.createElement("div");
+    backdrop.className = "product-modal__backdrop";
+    var panel = document.createElement("div");
+    panel.className = "product-modal__panel";
+    panel.tabIndex = -1;
+
+    var closeButton = document.createElement("button");
+    closeButton.type = "button";
+    closeButton.className = "product-modal__close";
+    closeButton.setAttribute("aria-label", "Fechar detalhes do produto");
+    closeButton.textContent = "×";
+
+    var body = document.createElement("div");
+    body.className = "product-modal__body";
+    var media = document.createElement("div");
+    media.className = "product-modal__media";
+    var image = document.createElement("img");
+    image.className = "product-modal__image";
+    image.alt = "";
+    var imageFallback = document.createElement("div");
+    imageFallback.className = "product-modal__image-fallback";
+    imageFallback.textContent = "Imagem indisponível";
+    imageFallback.hidden = true;
+    image.addEventListener("error", function () {
+      image.hidden = true;
+      imageFallback.hidden = false;
+    }, { once: true });
+    media.append(image, imageFallback);
+
+    var content = document.createElement("div");
+    content.className = "product-modal__content";
+    var model = document.createElement("p");
+    model.className = "product-modal__model";
+    var title = document.createElement("h2");
+    title.className = "product-modal__title";
+    title.id = "product-modal-title";
+    var description = document.createElement("p");
+    description.className = "product-modal__desc";
+    var sizesHeading = document.createElement("p");
+    sizesHeading.className = "product-modal__size-heading";
+    sizesHeading.textContent = "Tamanhos disponíveis";
+    var sizesMessage = document.createElement("p");
+    sizesMessage.className = "product-modal__size";
+    var sizes = document.createElement("div");
+    sizes.className = "product-modal__sizes";
+    sizes.setAttribute("role", "group");
+    sizes.setAttribute("aria-label", "Tamanhos disponíveis");
+    var price = document.createElement("p");
+    price.className = "product-modal__price";
+    var addButton = document.createElement("button");
+    addButton.type = "button";
+    addButton.className = "btn btn--primary product-modal__add";
+    addButton.textContent = "Adicionar ao carrinho";
+    content.append(model, title, description, sizesHeading, sizesMessage, sizes, price, addButton);
+    body.append(media, content);
+    panel.append(closeButton, body);
+    modal.append(backdrop, panel);
+    document.body.appendChild(modal);
+
+    var productAtual = null;
+    var tamanhoSelecionado = null;
+    var focoAnterior = null;
+    var overflowAnterior = "";
+
+    function fechar() {
+      modal.hidden = true;
+      document.body.style.overflow = overflowAnterior;
+      if (focoAnterior && focoAnterior.focus) focoAnterior.focus();
+    }
+
+    function abrir(product) {
+      var rawSizes = product.sizes !== undefined ? product.sizes : product.tamanhos;
+      var availableSizes = Array.isArray(rawSizes)
+        ? rawSizes
+        : typeof rawSizes === "string" ? rawSizes.split(",") : [];
+      availableSizes = Array.from(new Set(availableSizes.map(function (size) {
+        return String(size).trim();
+      }).filter(Boolean)));
+
+      productAtual = {
+        id: product.id,
+        name: product.name || product.nome || "Produto",
+        model: product.model || product.modelo || "",
+        description: product.description || product.descricao || "",
+        imageUrl: product.imageUrl || product.imagemUrl || "",
+        priceCents: product.priceCents != null
+          ? Number(product.priceCents)
+          : Math.round(Number(product.preco) * 100)
+      };
+      tamanhoSelecionado = null;
+      focoAnterior = document.activeElement;
+      overflowAnterior = document.body.style.overflow;
+
+      image.src = productAtual.imageUrl;
+      image.alt = productAtual.name;
+      image.hidden = !productAtual.imageUrl;
+      imageFallback.hidden = Boolean(productAtual.imageUrl);
+      imageFallback.textContent = productAtual.imageUrl ? "Imagem indisponível" : "Sem imagem cadastrada";
+      model.textContent = productAtual.model;
+      model.hidden = !productAtual.model;
+      title.textContent = productAtual.name;
+      description.textContent = productAtual.description;
+      description.hidden = !productAtual.description;
+      price.textContent = formatPrice(productAtual.priceCents);
+      sizes.replaceChildren();
+      sizesMessage.textContent = availableSizes.length
+        ? "Selecione um tamanho"
+        : "Tamanhos não cadastrados. Informe-os pelo admin.";
+      addButton.textContent = "Adicionar ao carrinho";
+
+      availableSizes.forEach(function (size) {
+        var sizeButton = document.createElement("button");
+        sizeButton.type = "button";
+        sizeButton.className = "product-modal__size";
+        sizeButton.textContent = size;
+        sizeButton.setAttribute("aria-pressed", "false");
+        sizeButton.addEventListener("click", function () {
+          tamanhoSelecionado = size;
+          Array.from(sizes.children).forEach(function (option) {
+            var active = option === sizeButton;
+            option.classList.toggle("product-modal__size--active", active);
+            option.setAttribute("aria-pressed", String(active));
+          });
+          sizesMessage.textContent = "Tamanho selecionado: " + size;
+        });
+        sizes.appendChild(sizeButton);
+      });
+
+      modal.hidden = false;
+      document.body.style.overflow = "hidden";
+      closeButton.focus();
+    }
+
+    addButton.addEventListener("click", function () {
+      if (!productAtual || (sizes.children.length > 0 && !tamanhoSelecionado)) {
+        sizesMessage.textContent = "Selecione um tamanho para continuar.";
+        return;
+      }
+      if (!window.DlimaCart || !window.DlimaCart.addItem) return;
+
+      var added = window.DlimaCart.addItem({
+        id: productAtual.id,
+        name: productAtual.name,
+        model: productAtual.model,
+        priceCents: productAtual.priceCents,
+        imageUrl: productAtual.imageUrl,
+        size: tamanhoSelecionado
+      });
+      if (added) addButton.textContent = "Adicionado ao carrinho";
+    });
+
+    closeButton.addEventListener("click", fechar);
+    modal.addEventListener("click", function (event) {
+      if (event.target === modal || event.target === backdrop) fechar();
+    });
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && !modal.hidden) fechar();
+    });
+
+    return { open: abrir };
+  }
+
+  window.DlimaProductModal = createProductModal();
+
+  function createComingSoonCard(product) {
+    var item = document.createElement("li");
+    var card = document.createElement("article");
+    card.className = "card product-card";
+
+    var media = document.createElement("div");
+    media.className = "card__media";
+    var image = document.createElement("img");
+    image.className = "product-card__image";
+    image.src = product.imagemUrl || "";
+    image.alt = product.nome;
+    image.loading = "lazy";
+    image.width = 600;
+    image.height = 750;
+    image.addEventListener("error", function () {
+      var placeholder = document.createElement("div");
+      placeholder.className = "product-card__placeholder";
+      placeholder.textContent = "Imagem indisponível";
+      image.replaceWith(placeholder);
+    }, { once: true });
+    media.appendChild(image);
+
+    var body = document.createElement("div");
+    body.className = "card__body";
+    var model = document.createElement("p");
+    model.className = "card__model";
+    model.textContent = product.modelo || "Novo lançamento";
+    var title = document.createElement("h3");
+    title.className = "card__title";
+    title.textContent = product.nome;
+    body.append(model, title);
+
+    if (product.descricao) {
+      var description = document.createElement("p");
+      description.className = "card__desc";
+      description.textContent = product.descricao;
+      body.appendChild(description);
+    }
+
+    var footer = document.createElement("div");
+    footer.className = "card__footer";
+    var price = document.createElement("span");
+    price.className = "card__price";
+    var priceCents = Math.round(Number(product.preco) * 100);
+    price.textContent = formatPrice(priceCents);
+
+    var detailsButton = document.createElement("button");
+    detailsButton.type = "button";
+    detailsButton.className = "btn btn--primary";
+    detailsButton.textContent = "Ver detalhes";
+    detailsButton.addEventListener("click", function () {
+      window.DlimaProductModal.open(product);
+    });
+
+    footer.append(price, detailsButton);
+    body.appendChild(footer);
+    card.append(media, body);
+    item.appendChild(card);
+    return item;
+  }
+
+  async function loadComingSoonProducts() {
+    if (!comingSoonGrid || !comingSoonStatus) return;
+
+    try {
+      var response = await fetch("/api/produtos", { headers: { Accept: "application/json" } });
+      if (!response.ok) throw new Error("Não foi possível carregar as novidades.");
+
+      var catalog = await response.json();
+      var products = Array.isArray(catalog.produtos) ? catalog.produtos : [];
+      var comingSoonProducts = products.filter(function (product) {
+        return String(product.categoria || "").trim().toLocaleLowerCase("pt-BR") === "em breve";
+      });
+
+      comingSoonGrid.replaceChildren();
+      comingSoonProducts.forEach(function (product) {
+        comingSoonGrid.appendChild(createComingSoonCard(product));
+      });
+      comingSoonStatus.textContent = comingSoonProducts.length === 0
+        ? "Nenhum produto em breve cadastrado."
+        : "";
+    } catch (error) {
+      comingSoonStatus.textContent = error.message || "Não foi possível carregar as novidades.";
+    }
   }
 
   function itemCount() {
@@ -310,4 +575,5 @@
   };
 
   renderCart();
+  loadComingSoonProducts();
 })();

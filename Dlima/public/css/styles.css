@@ -335,6 +335,20 @@ img {
   border-top: 1px solid var(--border);
 }
 
+.coming-soon {
+  padding-top: 1.5rem;
+}
+
+.coming-soon__status:empty {
+  display: none;
+}
+
+.coming-soon__grid {
+  width: min(100%, 72rem);
+  margin: 0 auto;
+  text-align: left;
+}
+
 .coming-soon h2,
 .contact h2,
 .about h2 {
@@ -758,6 +772,17 @@ img {
   display: block;
 }
 
+.product-modal__image-fallback {
+  display: grid;
+  min-height: 420px;
+  place-items: center;
+  color: var(--muted);
+}
+
+.product-modal__image-fallback[hidden] {
+  display: none;
+}
+
 .product-modal__content {
   display: flex;
   flex-direction: column;
@@ -811,6 +836,12 @@ img {
   cursor: pointer;
 }
 
+.product-modal__size-heading {
+  margin: 0;
+  color: #fff;
+  font-weight: 700;
+}
+
 .product-modal__size--active {
   background: var(--accent-yellow);
   color: #000;
@@ -854,6 +885,36 @@ img {
 
 .product-modal__add {
   min-width: 12rem;
+}
+
+@media (max-width: 639px) {
+  .product-modal {
+    padding: 0.5rem;
+  }
+
+  .product-modal__panel {
+    max-height: calc(100dvh - 1rem);
+    border-radius: 0.75rem;
+  }
+
+  .product-modal__body {
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .product-modal__media,
+  .product-modal__image-fallback {
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+  }
+
+  .product-modal__content {
+    gap: 0.75rem;
+  }
+
+  .product-modal__add {
+    width: 100%;
+  }
 }
 
 .cart-line__size {
@@ -1564,6 +1625,163 @@ img {
   text-transform: uppercase;
   letter-spacing: 0.1em;
   font-size: 0.75rem;
+}
+
+.main--home {
+  max-width: none;
+  padding: 0;
+}
+
+.hero-video {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: calc(100svh - 13rem);
+  min-height: 30rem;
+  overflow: hidden;
+  background: #111;
+}
+
+.hero-video::after {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.38);
+  content: "";
+}
+
+.hero-video__media {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 42%;
+}
+
+.hero-video__content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  margin: 0;
+  padding: 2rem 3rem;
+  text-shadow: 0 2px 22px rgba(0, 0, 0, 0.7);
+}
+
+.hero-video__eyebrow {
+  margin: 0 0 1rem;
+  color: var(--accent-yellow);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+}
+
+.hero-video__content h1 {
+  margin: 0;
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 8rem;
+  font-weight: 400;
+  line-height: 0.88;
+}
+
+.hero-video__subtitle {
+  margin: 1.25rem 0 1.75rem;
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.hero-video__controls {
+  position: absolute;
+  z-index: 2;
+  right: 1.5rem;
+  bottom: 1rem;
+  left: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.hero-video__scroll {
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-decoration: none;
+  text-shadow: 0 1px 8px #000;
+}
+
+.hero-video__scroll span {
+  margin-left: 0.4rem;
+  color: var(--accent-yellow);
+}
+
+@media (max-width: 639px) {
+  .header--home .brand--logo {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .header--home .header-cart {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .header--home .header__inner {
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+  }
+
+  .header--home .nav {
+    flex-wrap: nowrap;
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-content: flex-start;
+    gap: 0.75rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .header--home .nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .header--home .nav__link {
+    flex: 0 0 auto;
+    font-size: 0.68rem;
+    white-space: nowrap;
+  }
+
+  .hero-video {
+    height: calc(100svh - 14rem);
+    min-height: 20rem;
+  }
+
+  .hero-video__media {
+    object-position: 54% center;
+  }
+
+  .hero-video__content {
+    padding: 1.5rem 1rem;
+  }
+
+  .hero-video__content h1 {
+    font-size: 4rem;
+  }
+
+  .hero-video__subtitle {
+    font-size: 1rem;
+  }
+
+  .hero-video__controls {
+    right: 1rem;
+    left: 1rem;
+  }
 }
 
 /* =========================
